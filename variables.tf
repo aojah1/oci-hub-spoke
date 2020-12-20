@@ -32,8 +32,14 @@ locals {
   spoke_use_sgw = true
   spoke_name = ["dept1", "dept2"] # , "otherdept"
   spoke_vcn_cidr = ["10.15.0.0/16", "10.16.0.0/16"] # , "10.17.2.0/23"
-  spoke_pub_sub_cidr = ["10.15.0.0/17", "10.16.0.0/17"] # , "10.17.2.0/24"
-  spoke_priv_sub_cidr = ["10.15.128.0/17", "10.16.128.0/17"] # , "10.17.3.0/24"
+  spoke_pub_sub_cidr = ["10.15.0.0/18", "10.16.0.0/18"] # , "10.17.2.0/24"
+  spoke_priv_sub_cidr = ["10.15.64.0/18", "10.16.64.0/18"] # , "10.17.3.0/24"
+  # additional subnets for dept1 spoke vcn:
+  # 10.15.128.0/18
+  # 10.15.192.0/18
+  # additional subnets for dept2 spoke vcn:
+  # 10.16.128.0/18
+  # 10.16.192.0/18
 }
 locals {
   # shorthand values

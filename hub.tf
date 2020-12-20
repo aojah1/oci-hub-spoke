@@ -67,6 +67,7 @@ resource "oci_core_subnet" "hub_pub_sub" {
   compartment_id    = var.compartment_ocid
   vcn_id            = oci_core_vcn.hub_vcn.id
   display_name      = "${local.region}-${local.hub_name}-${local.public}-${local.subnet}"
+  dns_label         = "${local.public}${local.subnet}"
   security_list_ids = [oci_core_security_list.hub_pub_sl.id]
   route_table_id    = oci_core_route_table.hub_pub_rt.id
 }
@@ -77,6 +78,7 @@ resource "oci_core_subnet" "hub_priv_sub" {
   compartment_id    = var.compartment_ocid
   vcn_id            = oci_core_vcn.hub_vcn.id
   display_name      = "${local.region}-${local.hub_name}-${local.private}-${local.subnet}"
+  dns_label         = "${local.private}${local.subnet}"
   security_list_ids = [oci_core_security_list.hub_priv_sl.id]
   route_table_id    = oci_core_route_table.hub_priv_rt.id
 }

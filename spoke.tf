@@ -19,7 +19,7 @@ resource "oci_core_route_table" "spoke_pub_rt" {
   count = length(local.spoke_name)
   compartment_id = var.compartment_ocid
   vcn_id = oci_core_vcn.spoke_vcn[count.index].id
-  display_name = "${local.region}-${local.spoke_name[count.index]}--${local.public}-${local.route_table}"
+  display_name = "${local.region}-${local.spoke_name[count.index]}-${local.public}-${local.route_table}"
   # lpg (local peering to hub)
   route_rules {
     network_entity_id = oci_core_local_peering_gateway.spoke_to_hub_lpg[count.index].id
