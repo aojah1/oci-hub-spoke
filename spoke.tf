@@ -179,4 +179,20 @@ resource "oci_core_security_list" "spoke_priv_sl" {
       type = 8
     }
   }
+  ingress_security_rules {
+    protocol = 6
+    source   = local.spoke_priv_sub_cidr[count.index]
+
+    tcp_options {
+      max = 22
+      min = 22
+    }
+  }
+  ingress_security_rules {
+    protocol = 1
+    source   = local.spoke_priv_sub_cidr[count.index]
+    icmp_options {
+      type = 8
+    }
+  }
 }
