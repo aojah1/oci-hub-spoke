@@ -45,10 +45,13 @@ resource "oci_core_route_table" "hub_priv_rt" {
     destination_type  = "CIDR_BLOCK"
   }
   # drg
-  route_rules {
-    network_entity_id = oci_core_drg.hub_drg.id
+  dynamic route_rules {
+    for_each = local.use_drg ? [1] : []
+    content {
+    network_entity_id = oci_core_drg.hub_drg[0].id
     destination       = local.client_premises_cidr
     destination_type  = "CIDR_BLOCK"
+    }
   }
   # lpg - local peering to spoke
   dynamic route_rules {
@@ -156,12 +159,14 @@ resource "oci_core_security_list" "hub_priv_sl" {
 }
 # drg
 resource "oci_core_drg" "hub_drg" {
+  count = local.use_drg ? 1 : 0
   compartment_id = var.compartment_ocid
   display_name   = "${local.region}-${local.hub_name}-${local.dynamic_routing_gateway}"
 }
 resource "oci_core_drg_attachment" "hub_drg_attachment" {
+  count = local.use_drg ? 1 : 0
   #Required
-  drg_id = oci_core_drg.hub_drg.id
+  drg_id = oci_core_drg.hub_drg[0].id
   vcn_id = oci_core_vcn.hub_vcn.id
 
   #Optional

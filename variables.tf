@@ -59,4 +59,5 @@ locals {
 locals {
   # other
   client_premises_cidr = "172.1.0.0/16" # change to actual
+  use_drg = true
 }
